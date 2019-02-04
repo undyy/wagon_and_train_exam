@@ -24,6 +24,7 @@ class Train
         ostream& print(ostream &o) const;
         
         void sort();
+        void switches(size_t from, size_t count, Train &to, size_t pos);
 };
 
 ostream& operator<<(ostream &o, const Train &t);

@@ -122,7 +122,54 @@ void Train::sort()
     wagons = new_wagons;
 }
 
+void Train::switches(size_t from, size_t count, Train &to, size_t pos)
+{
+    size_t this_size { wagons.size() };
+    size_t other_size { to.wagons.size() };
+
+    if (from >= this_size || from + count > this_size || pos > other_size || count <= 0)
+        throw runtime_error("Invalid argument(s)");
+
+    vector<Wagon> new_this_wagons{}, temp{}, new_other_wagons{};
+
+    size_t i{ 0 };
+    for (const auto &w : wagons)
+    {
+        if (i++ >= from && count--)
+            temp.push_back(w);
+        else
+            new_this_wagons.push_back(w);
+    }
+
+    i = 0;
+    bool inserted{ false };
+    if (!to.wagons.empty())
+    {
+        for (const auto &w : to.wagons)
+        {
+            if (i++ == pos && !inserted)
+            {
+                for (const auto &temp_w : temp)
+                    new_other_wagons.push_back(temp_w);
+                inserted = true;
+            }
+            
+            new_other_wagons.push_back(w);
+        }
+        to.wagons = new_other_wagons;
+    }
+    else
+        to.wagons = temp;
+
+    wagons = new_this_wagons;
+}
+
 ostream& operator<<(ostream &o, const Train &t)
 {
     return t.print(o);
 }
+
+// [1, 2, 3, 4, 5]
+// from = 2
+// count = 3
+// 
