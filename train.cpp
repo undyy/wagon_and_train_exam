@@ -168,8 +168,3 @@ ostream& operator<<(ostream &o, const Train &t)
 {
     return t.print(o);
 }
-
-// [1, 2, 3, 4, 5]
-// from = 2
-// count = 3
-// 
