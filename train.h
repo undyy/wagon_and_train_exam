@@ -22,6 +22,8 @@ class Train
         void couple(vector<Wagon> new_wagons);
         vector<Wagon> uncouple(size_t from);
         ostream& print(ostream &o) const;
+        
+        void sort();
 };
 
 ostream& operator<<(ostream &o, const Train &t);

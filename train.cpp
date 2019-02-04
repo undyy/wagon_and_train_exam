@@ -106,6 +106,22 @@ ostream& Train::print(ostream &o) const
     return o << "}]";
 }
 
+void Train::sort()
+{
+    vector<vector<Wagon>> categories(5, vector<Wagon>{});
+    
+    for (const auto &w : wagons)
+        categories.at(static_cast<int>(w.get_feature())).push_back(w);
+
+    vector<Wagon> new_wagons{};
+
+    for (const auto &category : categories)
+        for (const auto &w : category)
+            new_wagons.push_back(w);
+
+    wagons = new_wagons;
+}
+
 ostream& operator<<(ostream &o, const Train &t)
 {
     return t.print(o);
